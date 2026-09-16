@@ -5,7 +5,7 @@ function EmailBlock({
   email,
 }: {
   title: string;
-  email?: { subject?: string; body?: string };
+  email: { subject?: string; body?: string } | undefined;
 }) {
   if (!email || (!email.subject && !email.body)) return null;
   return (
