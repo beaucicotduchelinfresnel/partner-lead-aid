@@ -19,8 +19,8 @@ function firstObject(value: unknown): LeadResult {
   if (value && typeof value === "object") {
     const obj = value as Record<string, unknown>;
     // n8n sometimes wraps output in { json: {...} } or { output: {...} }
-    if (obj.json && typeof obj.json === "object") return firstObject(obj.json);
-    if (obj.output && typeof obj.output === "object") return firstObject(obj.output);
+    if (obj["json"] && typeof obj["json"] === "object") return firstObject(obj["json"]);
+    if (obj["output"] && typeof obj["output"] === "object") return firstObject(obj["output"]);
     return obj as LeadResult;
   }
   return {};
