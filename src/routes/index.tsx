@@ -91,7 +91,7 @@ function Index() {
 
           {status === "processing" ? <ProcessingState /> : null}
 
-          {status === "error" ? <ErrorState onRetry={submit} /> : null}
+          {status === "error" ? <ErrorState onRetry={submit} detail={errorDetail} /> : null}
 
           {status === "success" && result ? (
             <>
