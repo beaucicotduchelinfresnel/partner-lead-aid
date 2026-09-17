@@ -49,6 +49,11 @@ export const processLead = createServerFn({ method: "POST" })
 
       if (!response.ok) {
         console.error("[n8n] non-2xx response", response.status, raw.slice(0, 500));
+        if (response.status === 404) {
+          throw new Error(
+            "The automation workflow is not switched on yet. Activate it in n8n, then try again.",
+          );
+        }
         throw new Error(`Workflow responded with status ${response.status}`);
       }
 

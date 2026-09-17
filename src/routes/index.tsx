@@ -39,6 +39,7 @@ function Index() {
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<LeadResult | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
   async function submit() {
     if (!message.trim()) {
@@ -55,6 +56,7 @@ function Index() {
       setStatus("success");
     } catch (error) {
       console.error("Lead processing failed", error);
+      setErrorDetail(error instanceof Error ? error.message : null);
       setStatus("error");
     }
   }
@@ -89,7 +91,7 @@ function Index() {
 
           {status === "processing" ? <ProcessingState /> : null}
 
-          {status === "error" ? <ErrorState onRetry={submit} /> : null}
+          {status === "error" ? <ErrorState onRetry={submit} detail={errorDetail} /> : null}
 
           {status === "success" && result ? (
             <>

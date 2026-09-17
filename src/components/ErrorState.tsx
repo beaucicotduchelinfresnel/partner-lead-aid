@@ -1,8 +1,9 @@
 type Props = {
   onRetry: () => void;
+  detail?: string | null;
 };
 
-export function ErrorState({ onRetry }: Props) {
+export function ErrorState({ onRetry, detail }: Props) {
   return (
     <section
       role="alert"
@@ -10,7 +11,7 @@ export function ErrorState({ onRetry }: Props) {
     >
       <h2 className="text-lg font-semibold text-foreground">We couldn&apos;t process this request</h2>
       <p className="mt-2 text-sm text-muted-foreground">
-        Something went wrong while connecting to the automation workflow. Please try again.
+        {detail ?? "Something went wrong while connecting to the automation workflow. Please try again."}
       </p>
       <button
         type="button"
