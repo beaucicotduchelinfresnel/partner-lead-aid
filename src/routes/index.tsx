@@ -56,6 +56,7 @@ function Index() {
       setStatus("success");
     } catch (error) {
       console.error("Lead processing failed", error);
+      setErrorDetail(error instanceof Error ? error.message : null);
       setStatus("error");
     }
   }
