@@ -39,6 +39,7 @@ function Index() {
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<LeadResult | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
   async function submit() {
     if (!message.trim()) {
