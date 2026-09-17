@@ -3,12 +3,12 @@ import { z } from "zod";
 import type { LeadResult } from "./n8n";
 
 /**
- * Default endpoint: the n8n TEST webhook.
- * Replace with the production `/webhook/...` URL by setting N8N_WEBHOOK_URL
- * (or VITE_N8N_WEBHOOK_URL) — no code change required.
+ * Default endpoint: the n8n PRODUCTION webhook.
+ * The workflow must be Active (toggle in the n8n editor) for this URL to respond.
+ * Override by setting N8N_WEBHOOK_URL (or VITE_N8N_WEBHOOK_URL) — no code change required.
  */
 export const DEFAULT_WEBHOOK_URL =
-  "https://gayiti.app.n8n.cloud/webhook-test/7e14d6cc-1f42-4bf3-b027-5ee040a6c114";
+  "https://gayiti.app.n8n.cloud/webhook/7e14d6cc-1f42-4bf3-b027-5ee040a6c114";
 
 const inputSchema = z.object({
   message: z.string().trim().min(1, "Message cannot be empty").max(4000),
