@@ -85,11 +85,11 @@ The webhook URL is configurable, so it can be swapped without touching code:
 | `N8N_WEBHOOK_URL`  | Webhook the workflow request is POSTed to. |
 
 `VITE_N8N_WEBHOOK_URL` is also accepted for parity with Vite/Next-style conventions
-(`NEXT_PUBLIC_N8N_WEBHOOK_URL` in a Next.js port). When unset, the app falls back to the current
-n8n **test** endpoint defined as `DEFAULT_WEBHOOK_URL` in `src/lib/n8n.functions.ts`:
+(`NEXT_PUBLIC_N8N_WEBHOOK_URL` in a Next.js port). When unset, the app falls back to the
+n8n **production** endpoint defined as `DEFAULT_WEBHOOK_URL` in `src/lib/n8n.functions.ts`:
 
 ```text
-https://gayiti.app.n8n.cloud/webhook-test/7e14d6cc-1f42-4bf3-b027-5ee040a6c114
+https://gayiti.app.n8n.cloud/webhook/7e14d6cc-1f42-4bf3-b027-5ee040a6c114
 ```
 
 Example `.env`:
@@ -98,8 +98,9 @@ Example `.env`:
 N8N_WEBHOOK_URL=https://gayiti.app.n8n.cloud/webhook/7e14d6cc-1f42-4bf3-b027-5ee040a6c114
 ```
 
-No OpenAI, Google, or n8n API credentials are needed by the frontend — only the webhook URL. Never
-commit `.env` files (already covered by `.gitignore`).
+No OpenAI, Google, or n8n API credentials are needed by the frontend — only the webhook URL.
+No secrets or API keys are stored in the code; never commit `.env` files (already covered by
+`.gitignore`).
 
 ## Workflow outcomes
 
@@ -122,9 +123,10 @@ In every case the customer-facing text shown is the workflow's own `customer_mes
 
 ## Known limitations
 
-- The default endpoint is the n8n **test** webhook. n8n only accepts one call per click of
-  "Execute workflow" in the editor, so the app will show its error state until the workflow is armed.
-  Replace it with the production `/webhook/...` URL via `N8N_WEBHOOK_URL` before any real deployment.
+- The production webhook only responds while the workflow is **Active** (the toggle in the
+  top-right of the n8n editor). If it is inactive, the endpoint returns a 404 and the app shows
+  its clear error state with a **Try again** button. Unlike the old test URL, no manual
+  "Execute workflow" click is needed — an active workflow answers every call automatically.
 - Processing stages shown while loading are a visual indication of progress, not per-agent telemetry;
   n8n does not stream intermediate state.
 - No persistence — submitted leads are not stored by the frontend.
