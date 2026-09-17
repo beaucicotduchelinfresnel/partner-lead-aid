@@ -1,8 +1,9 @@
 type Props = {
   onRetry: () => void;
+  detail?: string | null;
 };
 
-export function ErrorState({ onRetry }: Props) {
+export function ErrorState({ onRetry, detail }: Props) {
   return (
     <section
       role="alert"
