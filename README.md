@@ -84,23 +84,17 @@ The webhook URL is configurable, so it can be swapped without touching code:
 | ------------------ | ------------------------------------------ |
 | `N8N_WEBHOOK_URL`  | Webhook the workflow request is POSTed to. |
 
-`VITE_N8N_WEBHOOK_URL` is also accepted for parity with Vite/Next-style conventions
-(`NEXT_PUBLIC_N8N_WEBHOOK_URL` in a Next.js port). When unset, the app falls back to the
-n8n **production** endpoint defined as `DEFAULT_WEBHOOK_URL` in `src/lib/n8n.functions.ts`:
-
-```text
-https://gayiti.app.n8n.cloud/webhook/7e14d6cc-1f42-4bf3-b027-5ee040a6c114
-```
+`VITE_N8N_WEBHOOK_URL` is also accepted for parity with Vite-style conventions. When unset,
+the app falls back to the default production endpoint configured in `src/lib/n8n.functions.ts`.
 
 Example `.env`:
 
 ```bash
-N8N_WEBHOOK_URL=https://gayiti.app.n8n.cloud/webhook/7e14d6cc-1f42-4bf3-b027-5ee040a6c114
+N8N_WEBHOOK_URL=
 ```
 
-No OpenAI, Google, or n8n API credentials are needed by the frontend — only the webhook URL.
-No secrets or API keys are stored in the code; never commit `.env` files (already covered by
-`.gitignore`).
+Do not commit real credentials or sensitive values. This project does not require front-end API
+secrets; only the public webhook URL should be configured in the deployment environment.
 
 ## Workflow outcomes
 
@@ -133,10 +127,27 @@ In every case the customer-facing text shown is the workflow's own `customer_mes
 
 ## Deployment
 
-Any Node-compatible host works. For Vercel:
+The project is intended to run as a public front-end prototype, but the live URL must be set up in
+its deployment environment after the repository is pushed and the app is published.
+
+For a simple deployment flow:
 
 1. Push the repository to GitHub.
-2. Import the project in Vercel.
-3. Build command `npm run build`; the framework preset is detected automatically.
-4. Add the environment variable `N8N_WEBHOOK_URL` with the production webhook URL.
-5. Deploy. The app is publicly accessible with no authentication.
+2. Import the project in a Node-compatible host such as Vercel or Cloudflare.
+3. Set `N8N_WEBHOOK_URL` to the public n8n production webhook URL in the deployment environment.
+4. Run the production build with `npm run build`.
+5. Publish the site and share the final public URL once the deployment is live.
+
+## Live Demo
+
+Local development demo:
+
+- http://localhost:8080
+
+Production URL:
+
+- Add after deployment to the hosting platform.
+
+## Repository
+
+https://github.com/beaucicotduchelinfresnel/partner-lead-aid
